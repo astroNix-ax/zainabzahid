@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zainab Zahid — Full Stack Developer</title>
+<meta name="description" content="Full Stack Developer — Python, Django, React, Next.js, TypeScript. Building production-grade web applications from Lahore." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg2: #111113;
+    --bg3: #18181b;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e8e8;
+    --muted: #888;
+    --faint: #444;
+    --accent: #7cffd4;
+    --accent2: #a78bfa;
+    --accent3: #f87171;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Syne', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 4rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,11,0.85);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--sans);
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: var(--sans);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.3s;
+  }
+  .hero-name .dim { color: var(--faint); }
+
+  .hero-role {
+    font-family: var(--sans);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.45s;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.75s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: var(--accent);
+    color: #0a0a0b;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    text-decoration: none;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stack {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 1s;
+  }
+  .hero-stack-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .stack-pill {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .stack-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION HEADERS ─── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+    padding-top: 7rem;
+  }
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── SKILLS ─── */
+  #skills .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 7rem;
+  }
+
+  .skill-group {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+  .skill-group:hover { background: var(--bg2); }
+
+  .skill-group-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .skill-group-label::before {
+    content: '';
+    display: inline-block;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .skill-tag {
+    padding: 0.25rem 0.6rem;
+    background: var(--bg3);
+    color: var(--muted);
+    font-size: 12px;
+    border: 1px solid var(--border);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .skill-tag:hover { color: var(--text); border-color: var(--border2); }
+  .skill-tag.hot { color: var(--accent); border-color: rgba(124,255,212,0.2); background: rgba(124,255,212,0.04); }
+
+  /* ─── EXPERIENCE ─── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 7rem; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .exp-meta { padding-top: 0.2rem; }
+  .exp-date {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+  }
+  .exp-type {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--faint);
+  }
+
+  .exp-content {}
+  .exp-role {
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+  .exp-company {
+    font-size: 13px;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+  .exp-desc {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .exp-bullets li {
+    font-size: 13px;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    line-height: 1.7;
+  }
+  .exp-bullets li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+    top: 0.1rem;
+  }
+  .exp-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .tech-chip {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--faint);
+  }
+
+  /* ─── PROJECTS ─── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+
+  .project-card {
+    background: var(--bg);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.3s;
+    text-decoration: none;
+    color: inherit;
+  }
+  .project-card:hover { background: var(--bg2); }
+
+  .project-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .project-num {
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 0.08em;
+  }
+  .project-badge {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid;
+  }
+  .badge-live { border-color: rgba(124,255,212,0.3); color: var(--accent); }
+  .badge-prod { border-color: rgba(167,139,250,0.3); color: var(--accent2); }
+  .badge-hack { border-color: rgba(248,113,113,0.3); color: var(--accent3); }
+
+  .project-name {
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .project-tech span {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    padding: 0.15rem 0.45rem;
+    border: 1px solid var(--border);
+  }
+  .project-link {
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.6rem; }
+
+  /* lab projects smaller grid */
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 3rem;
+    margin-bottom: 7rem;
+  }
+
+  .lab-card {
+    background: var(--bg);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+  .lab-card:hover { background: var(--bg2); }
+  .lab-cat {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin-bottom: 0.6rem;
+  }
+  .lab-name {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .lab-note {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── ABOUT ─── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    padding-bottom: 7rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 7rem;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.85;
+    margin-bottom: 1.2rem;
+  }
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  .about-facts {}
+  .fact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .fact-label { color: var(--faint); letter-spacing: 0.04em; }
+  .fact-value { color: var(--text); text-align: right; }
+  .fact-value a { color: var(--accent); text-decoration: none; }
+  .fact-value a:hover { text-decoration: underline; }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    padding-bottom: 6rem;
+  }
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    padding-top: 1rem;
+  }
+  .contact-heading {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading .green { color: var(--accent); }
+  .contact-blurb {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 0; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link-label { color: var(--faint); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .contact-link-arrow { color: var(--accent); font-size: 18px; transition: transform 0.2s; }
+  .contact-link:hover .contact-link-arrow { transform: translateX(4px); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--faint);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 0 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-name { font-size: clamp(2.8rem, 12vw, 5rem); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">ZZ<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-status">
+    <span class="status-dot"></span>
+    Open to work
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-tag">// Full Stack Developer · Lahore, PK</p>
+  <h1 class="hero-name">
+    Zainab<br/><span class="dim">Zahid</span>
+  </h1>
+  <p class="hero-role">Python · Django · React · Next.js · TypeScript</p>
+  <p class="hero-desc">
+    I build production-grade web apps — clean APIs on Django REST Framework, 
+    fast interfaces in Next.js, and systems that actually ship. 1+ year of professional 
+    experience across SaaS, cloud infrastructure, and hackathon builds.
+  </p>
+  <div class="hero-ctas">
+    <a href="#projects" class="btn-primary">View Work →</a>
+    <a href="mailto:zynabzahid877@gmail.com" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-stack">
+    <span class="hero-stack-label">Core Stack</span>
+    <span class="stack-pill">Python</span>
+    <span class="stack-pill">Django REST</span>
+    <span class="stack-pill">React.js</span>
+    <span class="stack-pill">Next.js 14/15</span>
+    <span class="stack-pill">TypeScript</span>
+    <span class="stack-pill">PostgreSQL</span>
+    <span class="stack-pill">Docker</span>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-label">Backend & Python</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Python</span>
+        <span class="skill-tag hot">Django</span>
+        <span class="skill-tag hot">Django REST Framework</span>
+        <span class="skill-tag">Flask</span>
+        <span class="skill-tag hot">RESTful APIs</span>
+        <span class="skill-tag">JWT Auth</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">Security & Data Protection</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Frontend</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">React.js</span>
+        <span class="skill-tag hot">Next.js 14/15</span>
+        <span class="skill-tag hot">TypeScript</span>
+        <span class="skill-tag">JavaScript ES6+</span>
+        <span class="skill-tag hot">Tailwind CSS</span>
+        <span class="skill-tag">ShadCN UI</span>
+        <span class="skill-tag">Material UI</span>
+        <span class="skill-tag">HTML5 / CSS3</span>
+        <span class="skill-tag">App Router</span>
+        <span class="skill-tag">SSR / CSR / ISR</span>
+        <span class="skill-tag">WCAG Accessibility</span>
+        <span class="skill-tag">RWD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">PostgreSQL</span>
+        <span class="skill-tag">MongoDB</span>
+        <span class="skill-tag">Supabase</span>
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Schema Design</span>
+        <span class="skill-tag">Supabase Auth</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Auth & Integrations</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">NextAuth (RBAC)</span>
+        <span class="skill-tag">JWT Middleware</span>
+        <span class="skill-tag">Stripe</span>
+        <span class="skill-tag">React Query (TanStack)</span>
+        <span class="skill-tag">Postman</span>
+        <span class="skill-tag">3rd Party APIs</span>
+        <span class="skill-tag">Firebase</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Performance & Quality</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Lazy Loading</span>
+        <span class="skill-tag">Code Splitting</span>
+        <span class="skill-tag">Memoisation</span>
+        <span class="skill-tag">Image Optimisation</span>
+        <span class="skill-tag">Lighthouse Audits</span>
+        <span class="skill-tag">Jest</span>
+        <span class="skill-tag">React Testing Library</span>
+        <span class="skill-tag">ESLint</span>
+        <span class="skill-tag">Code Reviews</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">DevOps & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag hot">Git / GitHub</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">CI/CD</span>
+        <span class="skill-tag">Agile / Scrum</span>
+        <span class="skill-tag">Jira</span>
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">Figma</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Oct 2025 — Present</div>
+        <div class="exp-type">Onsite · Full-time</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Full Stack Developer</div>
+        <div class="exp-company">React-ive Code Labs — Lahore</div>
+        <ul class="exp-bullets">
+          <li>Built and maintained HRCA Mega Events Platform — a three-portal SaaS (school, admin, student) with Next.js + TypeScript frontend and Django REST Framework backend. Designed PostgreSQL schema, built RESTful APIs, and implemented RBAC auth with NextAuth and JWT.</li>
+          <li>Added features and resolved bugs on certslibrary.com — a live B2B SaaS platform serving enterprise clients. Used Postman to test APIs, inspect token flows, and debug integration issues.</li>
+          <li>Wrote reusable, testable components; participated in code reviews; collaborated across Agile sprints with designers and QA to ship quality software continuously.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-chip">Next.js 14</span>
+          <span class="tech-chip">TypeScript</span>
+          <span class="tech-chip">Django REST</span>
+          <span class="tech-chip">PostgreSQL</span>
+          <span class="tech-chip">NextAuth</span>
+          <span class="tech-chip">JWT</span>
+          <span class="tech-chip">Postman</span>
+          <span class="tech-chip">React Query</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Oct 2024 — Sep 2025</div>
+        <div class="exp-type">Remote · Part-time</div>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Full Stack Developer</div>
+        <div class="exp-company">Tilde — Cloud Infrastructure Startup</div>
+        <ul class="exp-bullets">
+          <li>Built a cloud deployment dashboard consuming complex third-party REST APIs; applied lazy loading, memoisation, and React Query caching to optimise performance on a data-heavy interface.</li>
+          <li>Collaborated in a remote Agile team across daily standups, sprint planning, and stakeholder demos — shipping consistently in a distributed environment.</li>
+        </ul>
+        <div class="exp-tech">
+          <span class="tech-chip">React.js</span>
+          <span class="tech-chip">Next.js</span>
+          <span class="tech-chip">TypeScript</span>
+          <span class="tech-chip">REST APIs</span>
+          <span class="tech-chip">React Query</span>
+          <span class="tech-chip">Agile</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-card-top">
+        <span class="project-num">01</span>
+        <span class="project-badge badge-prod">Production</span>
+      </div>
+      <div class="project-name">certslibrary.com</div>
+      <div class="project-desc">Live B2B SaaS platform with three portals, RBAC auth, Supabase integration, and active feature delivery for enterprise clients. Contributed to feature development and bug fixes on a real production codebase.</div>
+      <div class="project-tech">
+        <span>Next.js</span><span>TypeScript</span><span>Django REST</span><span>PostgreSQL</span><span>Supabase</span>
+      </div>
+      <a href="https://certslibrary.com" target="_blank" class="project-link">Live Site →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-top">
+        <span class="project-num">02</span>
+        <span class="project-badge badge-hack">Hackathon · 2026</span>
+      </div>
+      <div class="project-name">The Silent Gap — ASL Live Demo</div>
+      <div class="project-desc">AI-powered ASL (American Sign Language) interpreter built at a hackathon. Signs-to-text via live camera with ML model, and text-to-signs display. Built by Team KOOL — deployed and live.</div>
+      <div class="project-tech">
+        <span>Python</span><span>ML Model</span><span>Computer Vision</span><span>JavaScript</span>
+      </div>
+      <a href="https://aslapp-navy.vercel.app" target="_blank" class="project-link">Live Demo →</a>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-top">
+        <span class="project-num">03</span>
+        <span class="project-badge badge-live">Deployed</span>
+      </div>
+      <div class="project-name">HRCA Mega Events Platform</div>
+      <div class="project-desc">Three-portal SaaS for school, admin, and student users. Designed the relational DB schema from scratch, built and integrated all RESTful APIs, implemented secure JWT auth flow, and tested everything via Postman.</div>
+      <div class="project-tech">
+        <span>Next.js 14</span><span>TypeScript</span><span>Django REST</span><span>PostgreSQL</span><span>NextAuth</span><span>JWT</span>
+      </div>
+      <span style="font-size:12px;color:var(--faint);font-style:italic;">Not publicly deployed</span>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-top">
+        <span class="project-num">04</span>
+        <span class="project-badge badge-live">Deployed</span>
+      </div>
+      <div class="project-name">AzureStay — Hotel Booking Platform</div>
+      <div class="project-desc">Full stack hotel booking app with Next.js UI, Strapi headless CMS backend, Stripe payment integration, real-time room availability, and full responsiveness across all devices.</div>
+      <div class="project-tech">
+        <span>Next.js</span><span>Strapi CMS</span><span>TypeScript</span><span>Stripe</span>
+      </div>
+      <a href="https://github.com/zainabzahid711" target="_blank" class="project-link">GitHub →</a>
+    </div>
+
+  </div>
+
+  <!-- Lab Projects -->
+  <p style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-top:3rem;margin-bottom:0.75rem;">// Academic & Experimental</p>
+  <div class="lab-grid">
+    <div class="lab-card">
+      <div class="lab-cat">C++ / OOP</div>
+      <div class="lab-name">Online Banking System</div>
+      <div class="lab-note">Full OOP implementation with inheritance, polymorphism, and encapsulation.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">Data Structures</div>
+      <div class="lab-name">Music Directory</div>
+      <div class="lab-note">Linked-list based music directory in C++.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">IoT / Python</div>
+      <div class="lab-name">Zombie Runner Game</div>
+      <div class="lab-note">Python game on Raspberry Pi with GPIO integration.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">Database</div>
+      <div class="lab-name">Student Information System</div>
+      <div class="lab-note">Full DBA concepts — indexes, triggers, stored procedures.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">Mobile · Android</div>
+      <div class="lab-name">MediaDrive</div>
+      <div class="lab-note">Android app with Kotlin, XML, and Firebase backend.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">Web</div>
+      <div class="lab-name">RentNation System</div>
+      <div class="lab-note">HTML/CSS/JS + PHP full stack rental platform.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">OS</div>
+      <div class="lab-name">Signal Lights Simulation</div>
+      <div class="lab-note">Multi-threaded signal light system using OS thread concepts.</div>
+    </div>
+    <div class="lab-card">
+      <div class="lab-cat">React Sandbox</div>
+      <div class="lab-name">Todo List + Form Validation</div>
+      <div class="lab-note">CRUD operations and form patterns in React.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a Full Stack Developer based in <strong>Lahore, Pakistan</strong>, with 1+ year of professional experience building and shipping real production software. I work across the full stack — Django REST APIs on the backend, Next.js and TypeScript on the frontend, and PostgreSQL in between.</p>
+      <p>I care about <strong>clean, reusable code</strong>, proper API design, and shipping things that don't break in production. I'm comfortable in Agile teams, good at code reviews, and I use Postman the way it's supposed to be used.</p>
+      <p>I graduated from <strong>UMT Lahore</strong> in Information Technology in July 2025, and I've been building things since long before that — from Raspberry Pi games to Android apps to hackathon projects.</p>
+      <p>Currently <strong>open to full-time roles</strong> — onsite in Lahore or remote. Immediate joiner.</p>
+    </div>
+    <div class="about-facts">
+      <div class="fact-row">
+        <span class="fact-label">Location</span>
+        <span class="fact-value">Lahore, Pakistan</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Experience</span>
+        <span class="fact-value">1+ year professional</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Education</span>
+        <span class="fact-value">BSc IT — UMT Lahore, 2025</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Availability</span>
+        <span class="fact-value" style="color:var(--accent);">Immediate joiner</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Work type</span>
+        <span class="fact-value">Onsite Lahore · Remote</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">Certifications</span>
+        <span class="fact-value">Advanced React &amp; Redux · JS (HackerRank)</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">GitHub</span>
+        <span class="fact-value"><a href="https://github.com/zainabzahid711" target="_blank">zainabzahid711</a></span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">LinkedIn</span>
+        <span class="fact-value"><a href="https://linkedin.com/in/zainab-zahid-b18428240" target="_blank">zainab-zahid</a></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-inner">
+    <div>
+      <h3 class="contact-heading">Let's build<br/><span class="green">something.</span></h3>
+      <p class="contact-blurb">Open to full-time roles, freelance projects, and interesting problems. If you're building something real, I'd love to hear about it.</p>
+      <a href="mailto:zynabzahid877@gmail.com" class="btn-primary" style="display:inline-flex;">Send a message →</a>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:zynabzahid877@gmail.com" class="contact-link">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div>zynabzahid877@gmail.com</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/zainab-zahid-b18428240" target="_blank" class="contact-link">
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div>linkedin.com/in/zainab-zahid</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="https://github.com/zainabzahid711" target="_blank" class="contact-link">
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div>github.com/zainabzahid711</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="tel:+923134807380" class="contact-link">
+        <div>
+          <div class="contact-link-label">Phone</div>
+          <div>+92 313 480 7380</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+      <a href="https://twitter.com/zaniabzahid09" target="_blank" class="contact-link">
+        <div>
+          <div class="contact-link-label">Twitter / X</div>
+          <div>@zaniabzahid09</div>
+        </div>
+        <span class="contact-link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Zainab Zahid</span>
+  <span>Built with &lt;/&gt; · Lahore, PK</span>
+</footer>
+
+</body>
+</html>
